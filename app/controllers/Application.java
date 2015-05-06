@@ -9,15 +9,25 @@ public class Application extends Controller {
 	
 	//wenn framework aufgerufen wird soll login-seite erscheinen
 	@play.db.jpa.Transactional
+	public static Result index(){
+		return redirect(routes.Application.login());
+	}
+	
+	//login-seite
+	@play.db.jpa.Transactional
     public static Result login() {
         return ok(authentication.render());
     }
 	
 	//von login seite werden daten weitergeleitet
 	@play.db.jpa.Transactional
-    public static Result authentication() {
-        return ok(index.render("Your new application is ready."));
+    public static Result registration() {
+        return TODO;
     }
+	
+	public static Result mainGame(){
+		return TODO;
+	}
 	
 	
 }
