@@ -25,9 +25,10 @@ public class Application extends Controller {
         return TODO;
     }
 	
-	public static Result mainGame(){
-		return TODO;
+	//logout von Jeopardy
+	public static Result logout(){
+		session.clear();
+		return redirect(routes.Application.index());
 	}
-	
 	
 }
