@@ -27,7 +27,6 @@ public class Application extends Controller {
 	
 	//logout von Jeopardy
 	public static Result logout(){
-		session.clear();
 		return redirect(routes.Application.index());
 	}
 	
