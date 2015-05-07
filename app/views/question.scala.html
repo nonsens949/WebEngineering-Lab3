@@ -1,5 +1,4 @@
-@(player: Player)
-@(jeopardyGame: JeopardyGame)
+@(player: Player, jeopardyGame: JeopardyGame)
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
@@ -25,7 +24,7 @@
 		<nav role="navigation" aria-labelledby="navheading">
 			<h2 id="navheading" class="accessibility">Navigation</h2>
 			<ul>
-				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.logout()" accesskey="l">Abmelden</a></li>
+				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.login()" accesskey="l">Abmelden</a></li>
 			</ul>
 		</nav>
       
@@ -40,11 +39,11 @@
                <table>
                   <tr>
                      <th class="accessibility">Spielername</th>
-                     <td class="playername">@jeopardyGame.gethumanPlayer.getUser.getName</td>
+                     <td class="playername">@jeopardyGame.getHumanPlayer().getUser().getName()</td>
                   </tr>
                   <tr>
                      <th class="accessibility">Spielerpunkte</th>
-                     <td class="playerpoints">@jeopardyGame.gethumanPlayer.getUser.getProfit</td>
+                     <td class="playerpoints">@jeopardyGame.getHumanPlayer().getProfit()</td>
                   </tr>
                </table>
             </section>
@@ -54,11 +53,11 @@
                <table>
                   <tr>
                      <th class="accessibility">Spielername</th>
-                     <td class="playername">@jeopardyGame.getMarvinPlayer.getUser.getName</td>
+                     <td class="playername">@jeopardyGame.getMarvinPlayer().getUser().getName()</td>
                   </tr>
                   <tr>
                      <th class="accessibility">Spielerpunkte</th>
-                     <td class="playerpoints">jeopardyGame.getMarvinPlayer.getUser.getName</td>
+                     <td class="playerpoints">jeopardyGame.getMarvinPlayer().getUser().getName()</td>
                   </tr>
                </table>
             </section>
