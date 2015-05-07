@@ -1,5 +1,5 @@
 @(player: Player)
-@
+@(jeopardyGame: JeopardyGame)
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
@@ -40,11 +40,11 @@
                <table>
                   <tr>
                      <th class="accessibility">Spielername</th>
-                     <td class="playername">@player.getUser.getName</td>
+                     <td class="playername">@jeopardyGame.gethumanPlayer.getUser.getName</td>
                   </tr>
                   <tr>
                      <th class="accessibility">Spielerpunkte</th>
-                     <td class="playerpoints">@player.getProfit</td>
+                     <td class="playerpoints">@jeopardyGame.gethumanPlayer.getUser.getProfit</td>
                   </tr>
                </table>
             </section>
@@ -54,11 +54,11 @@
                <table>
                   <tr>
                      <th class="accessibility">Spielername</th>
-                     <td class="playername">Deadpool</td>
+                     <td class="playername">@jeopardyGame.getMarvinPlayer.getUser.getName</td>
                   </tr>
                   <tr>
                      <th class="accessibility">Spielerpunkte</th>
-                     <td class="playerpoints">400 €</td>
+                     <td class="playerpoints">jeopardyGame.getMarvinPlayer.getUser.getName</td>
                   </tr>
                </table>
             </section>
