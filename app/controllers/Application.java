@@ -19,8 +19,8 @@ public class Application extends Controller {
 	@play.db.jpa.Transactional
     public static Result login() {
 		//TODO player ersetzen
-//		Map<String, String> anyData = new HashMap();
-//		andyData.put()
+		session().clear();
+		session("email", "bla");
 		Player human = new SimplePlayer();
 		//Cache.set("human", human);
         return ok(authentication.render());
