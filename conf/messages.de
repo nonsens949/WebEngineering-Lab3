@@ -1,0 +1,73 @@
+# ----------- general -----------
+login = Anmelden
+logout = Abmelden
+logininfo = Klicke hier um dich anzumelden
+logoutinfo = Klicke hier um dich abzumelden
+navigation = Navigation
+
+# ----------- authentication -----------
+authentication.login = Login
+authentication.username = Benutzername:
+authentication.password = Passwort:
+authentication.signIn = Anmelden
+authentication.notRegistered = Nicht registriert?
+authentication.register = Zur Registrierung
+authentication.clickForRegistration = Klicke hier um dich zu registrieren
+authentication.registration = Registrierung
+
+# ----------- registration -----------
+registration.login = Anmelden
+registration.personalData = Persönliche Daten
+registration.firstName = Vorname:
+registration.lastName = Nachname:
+registration.birthday = Geburtstag:
+registration.gender.male =  Männlich
+registration.gender.female = Weiblich
+registration.playerData = Spielerdaten
+registration.avater = Avatar:
+registration.username = Benutzername*:
+registration.password = Passwort*:
+registration.register = Registrieren
+registration.starInfo = Mit "*" gekennzeichnete Felder sind Pflichtfelder
+registration.title = Business Informatics Group Jeopardy! - Registrieren
+registration.jumpToRegistration = Zur Registrierung springen
+registration.navigation = Navigation
+registration.login = Anmelden
+registration.registration = Registrierung
+registration.useFormat = Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2010).
+registration.errorMessageUsername = Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.
+registration.errorMessagePassword = Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.
+
+# ----------- jeopardy -----------
+jeopardy.title = Business Informatics Group Jeopardy! - Fragenauswahl
+jeopardy.questionSelection = Zur Fragenauswahl springen
+jeopardy.playerInfo = Spielerinformationen
+jeopardy.leader = Führender Spieler
+jeopardy.playerName = Spielername
+jeopardy.playerPoints = Spielerpunkte
+jeopardy.second = Zweiter Spieler
+jeopardy.questions = Fragen:
+jeopardy.category = Kategorie:
+jeopardy.lastGameInfo = Letztes Spielinfo
+jeopardy.lastGame = Letztes Spiel: 
+
+# ----------- question -----------
+question.title = Business Informatics Group Jeopardy! - Fragenbeantwortung
+question.jumpToQuestionSelection = Zur Fragenauswahl springen
+question.playerInfo = Spielerinformationen
+question.leader = Führender Spieler
+question.playerName = Spielername
+question.playerPoints = Spielerpunkte
+question.second = Zweiter Spieler
+question.questions = Fragen:
+question.question = Frage
+
+# ----------- winner -----------
+winner.info = Business Informatics Group Jeopardy! - Gewinnanzeige
+winner.jumpToWinner = Zur Gewinnanzeige springen
+winner.winnerInfo = Gewinnerinformation
+winner.winner = Gewinner:
+winner.playerName = Spielername
+winner.playerPoints = Spielerpunkte
+winner.loser = Verlierer:
+winner.newGame = Neues Spiel

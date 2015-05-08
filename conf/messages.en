@@ -1,0 +1,69 @@
+# ----------- general -----------
+login = Login
+logout = Logout
+logininfo = Click here to log in
+logoutinfo = Click here to log out
+navigation = Navigation
+
+# ----------- authentication -----------
+authentication.username = Username:
+authentication.password = Password:
+authentication.signIn = Login
+authentication.notRegistered = Not registered yet?
+authentication.register = Go to Registration
+authentication.clickForRegistration = Click here to register
+authentication.registration = Registration
+
+# ----------- registration -----------
+registration.personalData = Personal Data
+registration.firstName = Firstname:
+registration.lastName = Lastname:
+registration.birthday = Birthday:
+registration.gender.male =  Male
+registration.gender.female = Female
+registration.playerData = Player Data
+registration.avater = Avatar:
+registration.username = Username*:
+registration.password = Password*:
+registration.register = Register
+registration.starInfo = With "*" marked fields are required
+registration.title = Business Informatics Group Jeopardy! - Registration
+registration.jumpToRegistration = Jump to registration
+registration.registration = Registration
+registration.useFormat = Please use the following data format: dd.mm.yyyy (e.g. 24.12.2010).
+registration.errorMessageUsername = The username must have between 4 and 8 signs.
+registration.errorMessagePassword = The password must have between 4 and 8 signs.
+
+# ----------- jeopardy -----------
+jeopardy.title = Business Informatics Group Jeopardy! - Question Selection
+jeopardy.questionSelection = Jump to Question Selection
+jeopardy.playerInfo = Playerinformation
+jeopardy.leader = Leader Player
+jeopardy.playerName = Playername
+jeopardy.playerPoints = Playerpoints
+jeopardy.second = Second Player
+jeopardy.questions = Questions:
+jeopardy.category = Category:
+jeopardy.lastGameInfo = Last Gameinfo
+jeopardy.lastGame = Last game: 
+
+# ----------- question -----------
+question.title = Business Informatics Group Jeopardy! - Question Selection
+question.jumpToQuestionSelection = Jump to Question Selection
+question.playerInfo = Playerinformation
+question.leader = Leader Player
+question.playerName = Playername
+question.playerPoints = Playerpoints
+question.second = Second Player
+question.questions = Questions:
+question.question = Question
+
+# ----------- winner -----------
+winner.info = Business Informatics Group Jeopardy! - Winnerscreen
+winner.jumpToWinner = Jump to Winnerscreen
+winner.winnerInfo = Winnerinformation
+winner.winner = Winner:
+winner.playerName = Playername
+winner.playerPoints = Playerpoints
+winner.loser = Loser:
+winner.newGame = New Game

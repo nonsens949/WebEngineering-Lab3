@@ -67,10 +67,11 @@
          <!-- Question -->
          <section id="question-selection" aria-labelledby="questionheading">
             <h2 id="questionheading" class="black accessibility">Jeopardy</h2>
-            <p class="user-info positive-change">Du hast richtig geantwortet: +1000 €</p>
-            <p class="user-info negative-change">Deadpool hat falsch geantwortet: -500 €</p>
-            <p class="user-info">Deadpool hat TUWIEN für € 1000 gewählt.</p>
-            <form id="questionform" action="@routes.Application.showQuestion()" method="post">
+            <p class="user-info positive-change">@jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
+            <p class="user-info negative-change">@jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
+            <p class="user-info">Deadpool hat TU Wien für € 1000 gewählt.</p>
+            <!-- <form id="questionform" action="@routes.Application.showQuestion()" method="post"> -->
+            @helper.form(action = routes.Application.showQuestion) {
                <fieldset>
                <legend class="accessibility">Fragenauswahl</legend>
                <section class="questioncategory" aria-labelledby="tvheading">
@@ -121,9 +122,10 @@
                      <li><input name="question_selection" id="question_23" value="23" type="radio" disabled="disabled" /><label class="tile clickable" for="question_23">� 1000</label></li>
                   </ol>
                </section> 
-               </fieldset>               
-               <input class="greenlink formlink clickable" name="question_submit" id="next" type="submit" value="w�hlen" accesskey="s" />
-            </form>
+               </fieldset>             
+               <input class="greenlink formlink clickable" name="question_submit" id="next" type="submit" value="wählen" accesskey="s" />
+               }
+            <!--  </form> -->
          </section>
          
          <section id="lastgame" aria-labelledby="lastgameheading">

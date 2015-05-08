@@ -6,8 +6,8 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Business Informatics Group Jeopardy! - Gewinnanzeige</title>
-        <link rel="stylesheet" type="text/css" href="style/base.css" />
-        <link rel="stylesheet" type="text/css" href="style/screen.css" />
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/base.css")" />
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/screen.css")" />
 		  <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/framework.js" type="text/javascript"></script>
     </head>
@@ -24,7 +24,7 @@
 		<nav role="navigation" aria-labelledby="navheading">
 			<h2 id="navheading" class="accessibility">Navigation</h2>
 			<ul>
-				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href=@routes.Application.authenticate() accesskey="l">Abmelden</a></li>
+				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.authenticate()" accesskey="l">Abmelden</a></li>
 			</ul>
 		</nav>
       
@@ -32,8 +32,8 @@
       <div role="main">
          <section id="gameinfo" aria-labelledby="winnerinfoheading">
             <h2 id="winnerinfoheading" class="accessibility">Gewinnerinformationen</h2>
-            <p class="user-info positive-change">Du hast richtig geantwortet: +1000 €</p>
-            <p class="user-info negative-change">Deadpool hat falsch geantwortet: -500 €</p>
+            <p class="user-info positive-change">@jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
+            <p class="user-info negative-change">@jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
             <section class="playerinfo leader" aria-labelledby="winnerannouncement">
                <h3 id="winnerannouncement">Gewinner: @jeopardyGame.getWinner().getUser().getName()</h3>
                <img class="avatar" src="img/avatar/black-widow.png" alt="Spieler-Avatar Black Widow" />
