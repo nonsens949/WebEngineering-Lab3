@@ -1,5 +1,5 @@
+@(form: Form[Application.Login])
 
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
     <head>
@@ -24,16 +24,16 @@
         <div role="main">
             <section id="login" aria-labelledby="loginheading">
                <h2 id="loginheading" class="accessibility">Login</h2>
-                <form action="jeopardy.xhtml" method="post">
+                @helper.form(routes.Application.jeopardy){
                     <fieldset>
                         <legend id="logindata">Login</legend>
                         <label for="username">Benutzername:</label>
-                        <input name="username" id="username" type="text" required="required"/>
+                        <input name="username" id="username" type="text" required="required" value="@form("username").value"/>
                         <label for="password">Passwort:</label>
                         <input name="password" id="password" type="password" required="required"/>
                         <input name="login" id="loginsubmit" class="greenlink formlink clickable" type="submit" value="Anmelden"/>
                     </fieldset>
-                </form>
+                }
             </section>
             <!-- Register section -->
             <section id="registerforward" aria-labelledby="registerheading">
@@ -44,6 +44,6 @@
         </div>
 
         <!-- footer -->
-        <footer role="contentinfo">© 2015 BIG Jeopardy</footer>
+        <footer role="contentinfo">ï¿½ 2015 BIG Jeopardy</footer>
     </body>
 </html>

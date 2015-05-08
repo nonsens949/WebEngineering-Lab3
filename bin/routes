@@ -6,9 +6,10 @@
 GET     /                       controllers.Application.index()
 
 #Task pages
-GET		/login						controllers.Application.login()
+GET		/login						controllers.Application.authenticate()
 GET		/registration				controllers.Application.registration()
-GET		/mainGame					controllers.Application.mainGame()
+GET		/jeopardy					controllers.Application.jeopardy()
+GET 	/winner						controllers.Application.showWinner()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
