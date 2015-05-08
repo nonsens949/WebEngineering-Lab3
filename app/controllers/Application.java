@@ -66,6 +66,10 @@ public class Application extends Controller {
 		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
 	}
 
+	public static Result answerQuestion(){
+		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
+	}
+	
 	
 	public static class Login{
 		public String username;
