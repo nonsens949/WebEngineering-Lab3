@@ -72,6 +72,7 @@ question.question = Frage
 question.timer = Timer
 question.timeLeft = Verbleibende Zeit:
 question.for = für
+question.answer = Antworten
 
 # ----------- winner -----------
 winner.title = Business Informatics Group Jeopardy! - Gewinnanzeige
