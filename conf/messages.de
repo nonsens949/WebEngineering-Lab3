@@ -4,23 +4,25 @@ logout = Abmelden
 logininfo = Klicke hier um dich anzumelden
 logoutinfo = Klicke hier um dich abzumelden
 navigation = Navigation
+nothingToShow = Nichts anzuzeigen.
 
 # ----------- authentication -----------
-authentication.login = Login
 authentication.username = Benutzername:
 authentication.password = Passwort:
 authentication.signIn = Anmelden
 authentication.notRegistered = Nicht registriert?
-authentication.register = Zur Registrierung
+authentication.toRegister = Zur Registrierung
 authentication.clickForRegistration = Klicke hier um dich zu registrieren
 authentication.registration = Registrierung
+authentication.register = Registrieren
+authentication.jumpToLogin = Zum Login springen
 
 # ----------- registration -----------
-registration.login = Anmelden
 registration.personalData = Persönliche Daten
 registration.firstName = Vorname:
 registration.lastName = Nachname:
 registration.birthday = Geburtstag:
+registration.gender = Geschlecht:
 registration.gender.male =  Männlich
 registration.gender.female = Weiblich
 registration.playerData = Spielerdaten
@@ -50,6 +52,12 @@ jeopardy.questions = Fragen:
 jeopardy.category = Kategorie:
 jeopardy.lastGameInfo = Letztes Spielinfo
 jeopardy.lastGame = Letztes Spiel: 
+jeopardy.gameInfoChangeCorrect = hat richtig geantwortet für:
+jeopardy.gameInfoChangeIncorrect = hat falsch geantwortet für: 
+jeopardy.gameInfoQuestionChose = hat gewählt:
+jeopardy.gameInfoQuestionFor = für
+jeopardy.choose = wählen
+jeopardy.lastGameNever = Nie
 
 # ----------- question -----------
 question.title = Business Informatics Group Jeopardy! - Fragenbeantwortung
@@ -61,9 +69,12 @@ question.playerPoints = Spielerpunkte
 question.second = Zweiter Spieler
 question.questions = Fragen:
 question.question = Frage
+question.timer = Timer
+question.timeLeft = Verbleibende Zeit:
+question.for = für
 
 # ----------- winner -----------
-winner.info = Business Informatics Group Jeopardy! - Gewinnanzeige
+winner.title = Business Informatics Group Jeopardy! - Gewinnanzeige
 winner.jumpToWinner = Zur Gewinnanzeige springen
 winner.winnerInfo = Gewinnerinformation
 winner.winner = Gewinner:

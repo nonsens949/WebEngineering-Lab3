@@ -5,14 +5,15 @@ import java.util.Map;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+
 import play.db.jpa.*;
 import play.data.*;
 import models.UserModel;
 //
 
+
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import models.GameState;
@@ -21,13 +22,11 @@ import play.mvc.*;
 import at.ac.tuwien.big.we15.lab2.api.*;
 import at.ac.tuwien.big.we15.lab2.api.impl.PlayJeopardyFactory;
 import at.ac.tuwien.big.we15.lab2.api.impl.SimpleJeopardyGame;
+import at.ac.tuwien.big.we15.lab2.api.impl.SimpleUser;
 import views.html.*;
 import play.data.*;
 
 public class Application extends Controller {
-	
-	
-	public static HashMap<String, Object> objects = new HashMap<String, Object>();
 	
 	//wenn framework aufgerufen wird soll login-seite erscheinen
 	@play.db.jpa.Transactional
@@ -35,20 +34,6 @@ public class Application extends Controller {
 		
 		return redirect(routes.Application.authentication());
 	}
-	
-	/*
-	//login-seite
-	@play.db.jpa.Transactional
-    public static Result authenticate() {
-        return ok(authentication.render(Form.form(Login.class)));
-    }
-	
-	//von login seite werden daten weitergeleitet
-	@play.db.jpa.Transactional
-    public static Result registration() {
-		return ok(registration.render());
-    }
-	*/
 	
 	//logout von Jeopardy
 	public static Result logout(){
@@ -59,8 +44,6 @@ public class Application extends Controller {
 	//loads the Jeopardy site
 	@Security.Authenticated(Secured.class)
 	public static Result jeopardy(){
-		//Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
-		//session("username", loginForm.get().username);
 		JeopardyFactory jeopardyFactory;
 		if(lang().code().equals("de")){
 			jeopardyFactory = new PlayJeopardyFactory("data.de.json");
@@ -68,7 +51,10 @@ public class Application extends Controller {
 		else {
 			jeopardyFactory = new PlayJeopardyFactory("data.en.json");
 		}
-		JeopardyGame jeopardyGame = new SimpleJeopardyGame(jeopardyFactory, session().get("username") );
+		User user = new SimpleUser();
+		user.setName(session().get("username"));
+		user.setAvatar(Avatar.getAvatar(session().get("avatar")));
+		JeopardyGame jeopardyGame = new SimpleJeopardyGame(jeopardyFactory, user);
 		GameState.getGameStateMap().put(session().get("username"), jeopardyGame);
 		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
 	}
@@ -82,28 +68,27 @@ public class Application extends Controller {
 	public static Result showQuestion(){
 		DynamicForm form = Form.form().bindFromRequest();
 		Integer questionId = Integer.parseInt(form.data().get("question_selection"));
-//		System.out.println("empty? " + form.data().keySet().isEmpty());
-//		for(String s : form.data().keySet()){
-//			System.out.println("s = " + s);
-//			System.out.println("" + s  + " = " + form.data().get(s));
-//		}
-//		System.out.println(form.data().get("questionId"));
+
 		JeopardyGame jeopardyGame = GameState.getGameStateMap().get(session().get("username"));
-		List<Category> categories = jeopardyGame.getCategories();
-		Question chosenQuestion = null;
-		for(Category c : categories){
-			List<Question> questionList = c.getQuestions();
-			for(Question q: questionList){
-				if(q.getId() == questionId){
-					chosenQuestion = q;
-				}
-			}
-		}
+
 		jeopardyGame.chooseHumanQuestion(questionId);
-		return ok(question.render(jeopardyGame, chosenQuestion));
+		return ok(question.render(jeopardyGame, jeopardyGame.getHumanPlayer().getChosenQuestion()));
 	}
 	
 	public static Result newGame(){
+		JeopardyFactory jeopardyFactory;
+		if(lang().code().equals("de")){
+			jeopardyFactory = new PlayJeopardyFactory("data.de.json");
+		}
+		else {
+			jeopardyFactory = new PlayJeopardyFactory("data.en.json");
+		}
+		User user = new SimpleUser();
+		user.setName(session().get("username"));
+		System.out.println("NEW GAME AVATAR : " + session().get("avatar"));
+		System.out.println("AVATAR == NULL ? " + Avatar.getAvatar(session().get("avatar")) == null);
+		user.setAvatar(Avatar.getAvatar(session().get("avatar")));
+		GameState.getGameStateMap().replace(session().get("username"), new SimpleJeopardyGame(jeopardyFactory, user));
 		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
 	}
 
@@ -114,16 +99,12 @@ public class Application extends Controller {
 		List<Integer> answers = new ArrayList<Integer>();
 		jeopardyGame.answerHumanQuestion(answers);
 		
-		
-//		System.out.println("empty? " + form.data().keySet().isEmpty());
-//		for(String s : form.data().keySet()){
-//			System.out.println("s = " + s);
-//			System.out.println("" + s  + " = " + form.data().get(s));
-//		}
-//		System.out.println(form.data().values());
-//		System.out.println(form.data().containsValue("2"));
-		
-		return ok(jeopardy.render(jeopardyGame));
+		if(jeopardyGame.isGameOver()){
+			return ok(winner.render(jeopardyGame));
+		}
+		else {
+			return ok(jeopardy.render(jeopardyGame));
+		}
 	}
 	
 		public static Result registration() {
@@ -213,6 +194,7 @@ public class Application extends Controller {
                 
                 session().clear();
                 session("username", username);
+                session("avatar", user.getAvatar().getId());
                 return redirect(routes.Application.jeopardy());
             }
         }

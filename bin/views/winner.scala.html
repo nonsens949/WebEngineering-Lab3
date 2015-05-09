@@ -5,14 +5,14 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Business Informatics Group Jeopardy! - Gewinnanzeige</title>
+        <title>@Messages("winner.title")</title>
 		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/base.css")" />
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/screen.css")" />
 		  <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/framework.js" type="text/javascript"></script>
     </head>
     <body id="winner-page">
-      <a class="accessibility" href="#winner">Zur Gewinnanzeige springen</a>
+      <a class="accessibility" href="#winner">@Messages("winner.jumpToWinner")</a>
       <!-- Header -->
       <header role="banner" aria-labelledby="bannerheading">
          <h1 id="bannerheading">
@@ -22,51 +22,59 @@
       
       <!-- Navigation -->
 		<nav role="navigation" aria-labelledby="navheading">
-			<h2 id="navheading" class="accessibility">Navigation</h2>
+			<h2 id="navheading" class="accessibility">@Messages("navigation")</h2>
 			<ul>
-				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.authenticate()" accesskey="l">Abmelden</a></li>
+				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.authentication()" accesskey="l">@Messages("logout")</a></li>
 			</ul>
 		</nav>
       
       <!-- Content -->
       <div role="main">
          <section id="gameinfo" aria-labelledby="winnerinfoheading">
-            <h2 id="winnerinfoheading" class="accessibility">Gewinnerinformationen</h2>
-            <p class="user-info positive-change">@jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
-            <p class="user-info negative-change">@jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
+            <h2 id="winnerinfoheading" class="accessibility">@Messages("winner.winnerInfo")</h2>
+            @if(jeopardyGame.getHumanPlayer().getLatestProfitChange() < 0) {
+           		<p class="user-info negative-change">@jeopardyGame.getHumanPlayer().getUser().getName() @Messages("jeopardy.gameInfoChangeIncorrect") @jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
+            } else {
+           		<p class="user-info positive-change">@jeopardyGame.getHumanPlayer().getUser().getName() @Messages("jeopardy.gameInfoChangeCorrect") @jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
+            }	
+           	@if(jeopardyGame.getMarvinPlayer().getLatestProfitChange() < 0) {
+           		<p class="user-info negative-change">@jeopardyGame.getMarvinPlayer().getUser().getName() @Messages("jeopardy.gameInfoChangeIncorrect") @jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
+            } else {
+            	<p class="user-info positive-change">@jeopardyGame.getMarvinPlayer().getUser().getName() @Messages("jeopardy.gameInfoChangeCorrect") @jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
+            }	
             <section class="playerinfo leader" aria-labelledby="winnerannouncement">
-               <h3 id="winnerannouncement">Gewinner: @jeopardyGame.getWinner().getUser().getName()</h3>
-               <img class="avatar" src="img/avatar/black-widow.png" alt="Spieler-Avatar Black Widow" />
+               <h3 id="winnerannouncement">@Messages("winner.winner") @jeopardyGame.getWinner().getUser().getName()</h3>
+               <img class="avatar" src="@routes.Assets.at("images/avatar/" + jeopardyGame.getWinner().getUser().getAvatar().getImageFull())" alt="Spieler-Avatar @jeopardyGame.getWinner().getUser().getName()" />
                <table>
                   <tr>
-                     <th class="accessibility">Spielername</th>
+                     <th class="accessibility">@Messages("winner.playerName")</th>
                      <td class="playername">@jeopardyGame.getWinner().getUser().getName()</td>
                   </tr>
                   <tr>
-                     <th class="accessibility">Spielerpunkte</th>
+                     <th class="accessibility">@Messages("winner.playerPoints")</th>
                      <td class="playerpoints">@jeopardyGame.getWinner().getProfit()</td>
                   </tr>
                </table>
             </section>
             <section class="playerinfo" aria-labelledby="loserheading">
-               <h3 id="loserheading" class="accessibility">Verlierer: @jeopardyGame.getLoser().getUser().getName()</h3>
-               <img class="avatar" src="img/avatar/deadpool_head.png" alt="Spieler-Avatar Deadpool" />
+               <h3 id="loserheading" class="accessibility">@Messages("winner.loser") @jeopardyGame.getLoser().getUser().getName()</h3>
+               <img class="avatar" src="@routes.Assets.at("images/avatar/" + jeopardyGame.getLoser().getUser().getAvatar().getImageFull())" alt="Spieler-Avatar @jeopardyGame.getLoser().getUser().getName()" />
                <table>
                   <tr>
-                     <th class="accessibility">Spielername</th>
+                     <th class="accessibility">@Messages("winner.playerName")</th>
                      <td class="playername">@jeopardyGame.getLoser().getUser().getName()</td>
                   </tr>
                   <tr>
-                     <th class="accessibility">Spielerpunkte</th>
+                     <th class="accessibility">@Messages("winner.playerPoints")</th>
                      <td class="playerpoints">@jeopardyGame.getLoser().getProfit()</td>
                   </tr>
                </table>
             </section>
          </section>
          <section id="newgame" aria-labelledby="newgameheading">
-             <h2 id="newgameheading" class="accessibility">Neues Spiel</h2>
-         	@helper.form(action = routes.Application.jeopardy){
-               	<input class="clickable orangelink contentlink" id="new_game" type="submit" name="restart" value="Neues Spiel" />
+             <h2 id="newgameheading" class="accessibility">@Messages("winner.newGame")</h2>
+         	@helper.form(action = routes.Application.newGame){
+               	<input class="clickable orangelink contentlink" id="new_game" type="submit" name="restart" value="@Messages("winner.newGame")" />
             }
          </section>
       </div>

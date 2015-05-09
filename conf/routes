@@ -11,9 +11,10 @@ GET		/registration				controllers.Application.registration()
 GET		/jeopardy					controllers.Application.jeopardy()
 GET 	/winner						controllers.Application.showWinner()
 POST	/question					controllers.Application.showQuestion()
-POST 	/jeopardy					controllers.Application.answerQuestion()
-POST    /login                      controllers.Application.authenticationSubmit()
+POST 	/answerQuestion				controllers.Application.answerQuestion()
+POST    /login/submit               controllers.Application.authenticationSubmit()
 POST    /registration               controllers.Application.registrationSubmit()
+POST 	/jeopardy/newGame			controllers.Application.newGame()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
