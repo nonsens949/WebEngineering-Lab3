@@ -1,5 +1,15 @@
 package controllers;
 
+// imports emil
+import java.util.Map;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import play.db.jpa.*;
+import play.data.*;
+import models.UserModel;
+//
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,9 +33,10 @@ public class Application extends Controller {
 	@play.db.jpa.Transactional
 	public static Result index(){
 		
-		return redirect(routes.Application.authenticate());
+		return redirect(routes.Application.authentication());
 	}
 	
+	/*
 	//login-seite
 	@play.db.jpa.Transactional
     public static Result authenticate() {
@@ -37,17 +48,19 @@ public class Application extends Controller {
     public static Result registration() {
 		return ok(registration.render());
     }
+	*/
 	
 	//logout von Jeopardy
 	public static Result logout(){
 		session().clear();
-		return redirect(routes.Application.authenticate());
+		return redirect(routes.Application.authentication());
 	}
 	
 	//loads the Jeopardy site
+	@Security.Authenticated(Secured.class)
 	public static Result jeopardy(){
-		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
-		session("username", loginForm.get().username);
+		//Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+		//session("username", loginForm.get().username);
 		JeopardyFactory jeopardyFactory;
 		if(lang().code().equals("de")){
 			jeopardyFactory = new PlayJeopardyFactory("data.de.json");
@@ -113,6 +126,100 @@ public class Application extends Controller {
 		return ok(jeopardy.render(jeopardyGame));
 	}
 	
+		public static Result registration() {
+        return ok(registration.render());
+    }
+    
+	//Inserted by Emil begin
+    @Transactional
+    public static Result registrationSubmit() {
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        Map<String, String> formData = dynamicForm.data();
+        
+        UserModel user = JPA.em().find(UserModel.class, formData.get("username"));
+        boolean usernameValidationError = false;
+        
+        // Username is already taken
+        if (user != null) {
+            
+            usernameValidationError = true;
+        }
+        
+        UserModel newUser = new UserModel();
+        newUser.setName(formData.get("username"));
+        newUser.setAvatar(Avatar.getAvatar(formData.get("avatar")));
+        newUser.setPassword(formData.get("password"));
+        newUser.setFirstName(formData.get("firstname"));
+        newUser.setLastName(formData.get("lastname"));
+        
+        if (formData.get("gender").equals("m")) {
+            newUser.setSex(true);
+        } else {
+            newUser.setSex(false);
+        }
+        
+        String dateString = formData.get("birthdate");
+        boolean dateValidationError = false;
+        Date date = null;
+        
+        // date validation
+        if (!dateString.equals("")) {
+            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+            
+            try {
+            
+                date = df.parse(dateString);
+            
+            } catch (ParseException e) {
+            
+                dateValidationError = true;
+            }
+        
+        }
+        
+        if (dateValidationError || usernameValidationError) {
+            
+            return redirect(routes.Application.registration());
+            
+        } else {
+            
+            //if birthdate and username both are valid
+            if (date != null) {
+                newUser.setBirthdate(new java.sql.Date(date.getTime()));
+            }
+            JPA.em().persist(newUser);
+            return redirect(routes.Application.index());
+        }
+    }
+    
+    public static Result authentication() {
+        
+        return ok(authentication.render());
+    }
+    
+    @Transactional
+    public static Result authenticationSubmit() {
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        Map<String, String> formData = dynamicForm.data();
+        
+        String username = formData.get("username");
+        String password = formData.get("password");
+        
+        UserModel user = JPA.em().find(UserModel.class, username);
+        
+        if (user != null) {
+            
+            if (user.getPassword().equals(password)) {
+                
+                session().clear();
+                session("username", username);
+                return redirect(routes.Application.jeopardy());
+            }
+        }
+        
+        return redirect(routes.Application.index());
+    }
+	//inserted by emil end
 	
 	public static class Login{
 		public String username;
