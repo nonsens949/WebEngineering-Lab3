@@ -6,7 +6,6 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <title>@Messages("question.title")</title>
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/base.css")" />
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/screen.css")" />
@@ -14,21 +13,17 @@
         <script src="@routes.Assets.at("javascripts/framework.js")" type="text/javascript"></script>
     </head>
     <body id="question-page">
-
       <a class="accessibility" href="#questions">@Messages("question.jumpToQuestionSelection")</a>
       <!-- Header -->
       <header role="banner" aria-labelledby="bannerheading">
          <h1 id="bannerheading">
             <span class="accessibility">Business Informatics Group </span><span class="gametitle">Jeopardy!</span>
          </h1>
-      </header>
-      
+      </header>     
       <!-- Navigation -->
 		<nav role="navigation" aria-labelledby="navheading">
-
 			<h2 id="navheading" class="accessibility">@Messages("navigation")</h2>
 			<ul>
-
 				<li><a class="orangelink navigationlink" id="logoutlink" title="Klicke hier um dich abzumelden" href="@routes.Application.authentication()" accesskey="l">@Messages("logout")</a></li>
 			</ul>
 		</nav>
@@ -37,20 +32,16 @@
       <div role="main"> 
          <!-- info -->
          <section id="gameinfo" aria-labelledby="gameinfoinfoheading">
-
             <h2 id="gameinfoinfoheading" class="accessibility">@Messages("question.playerInfo")</h2>
             <section id="firstplayer" class="playerinfo leader" aria-labelledby="firstplayerheading">
-               <img class="avatar" src="@routes.Assets.at("images/avatar/" + jeopardyGame.getLeader().getUser().getAvatar().getImageHead())" alt="Spieler-Avatar Black Widow" />
                <h3 id="firstplayerheading" class="accessibility">@Messages("question.leader")</h3>
                <img class="avatar" src="@routes.Assets.at("images/avatar/" + jeopardyGame.getLeader().getUser().getAvatar().getImageHead())" alt="Spieler-Avatar @jeopardyGame.getLeader().getUser().getName()" />
                <table>
                   <tr>
-
                      <th class="accessibility">@Messages("question.playerName")</th>
                      <td class="playername">@jeopardyGame.getLeader().getUser().getName()</td>
                   </tr>
                   <tr>
-
                      <th class="accessibility">@Messages("question.playerPoints")</th>
                      <td class="playerpoints">@jeopardyGame.getLeader().getProfit()</td>
                   </tr>
@@ -61,17 +52,17 @@
                <img class="avatar" src="@routes.Assets.at("images/avatar/" + jeopardyGame.getSecond().getUser().getAvatar().getImageHead())" alt="Spieler-Avatar @jeopardyGame.getSecond().getUser().getName()" />
                <table>
                   <tr>
-
                      <th class="accessibility">@Messages("question.playerName")</th>
                      <td class="playername">@jeopardyGame.getSecond().getUser().getName()</td>
                   </tr>
                   <tr>
-
                      <th class="accessibility">@Messages("question.playerPoints")</th>
                      <td class="playerpoints">@jeopardyGame.getSecond().getProfit()</td>
                   </tr>
                </table>
             </section>
+            <p id="round">@Messages("question.question") @(jeopardyGame.getHumanPlayer().getAnsweredQuestions().size() + jeopardyGame.getMarvinPlayer().getAnsweredQuestions().size() + 1 ) / 10</p>
+		</section>
             
             
       <!-- Question -->
@@ -81,7 +72,6 @@
                <p id="questiontype">@question.getCategory().getName()</p>
                <p id="questiontext">@question.getText()</p>
                <ul id="answers">
-
 			   @for(answer <- question.getAllAnswers()) {
                   <li><input name="answers" id="answer_@answer.getId()" value="answers@answer.getId()" type="checkbox"/><label class="tile clickable" for="answer_@answer.getId()">@answer.getText()</label></li>
                 }
@@ -89,7 +79,7 @@
                <input id="timeleftvalue" type="hidden" value="100"/>
                
                <input class="greenlink formlink clickable" name="answer_submit" id="next" type="submit" value="Anworten" accesskey="s"/>
-            </form>
+            }
          </section>
             
          <section id="timer" aria-labelledby="timerheading">
