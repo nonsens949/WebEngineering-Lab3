@@ -62,24 +62,24 @@
                   </tr>
                </table>
             </section>
-            <p id="round">Frage: 3 / 10</p>
+            <p %{int numberQuestion = jeopardyGame.getHumanPlayer().getAnsweredQuestions().size() + jeopardyGame.getMarvinPlayer().getAnsweredQuestions().size();}%
+			id="round">Frage: ${numberQuestion} / 10</p>
          </section>
             
       <!-- Question -->
       <section id="question" aria-labelledby="questionheading">
-      		@helper.form(action = routes.Application.answerQuestion) {
+      		<form id="questionform" action="@routes.Application.answerQuestion()" method="post">
                <h2 id="questionheading" class="accessibility">Frage</h2>
-               <p id="questiontype">TUWIEN für € 300</p>
-               <p id="questiontext">Diese Lehrveranstaltungen bilden das Modul EWA.</p>
+               <p id="questiontype">@question.getCategory().getName()</p>
+               <p id="questiontext">@question.getText()</p>
                <ul id="answers">
-                  <li><input name="answers" id="answer_1" value="1" type="checkbox"/><label class="tile clickable" for="answer_1">Was ist IT Strategie?</label></li>
-                  <li><input name="answers" id="answer_2" value="2" type="checkbox"/><label class="tile clickable" for="answer_2">Was ist Web Engineering?</label></li>
-                  <li><input name="answers" id="answer_3" value="3" type="checkbox"/><label class="tile clickable" for="answer_3">Was ist Semistrukturierte Daten?</label></li>
-                  <li><input name="answers" id="answer_4" value="4" type="checkbox"/><label class="tile clickable" for="answer_4">Was ist Objektorientierte Modellierung?</label></li>
-               </ul>
+			   @for(answer <- question.getAllAnswers()) {
+                  <li><input name="answers" id="answer_@answer.getId()" value="answers@answer.getId()" type="checkbox"/><label class="tile clickable" for="answer_@answer.getId()">@answer.getText()</label></li>
+                }
+			   </ul>
                <input id="timeleftvalue" type="hidden" value="100"/>
-               <input class="greenlink formlink clickable" name="answer_submit" id="next" type="submit" value="antworten" accesskey="s"/>
-            }
+               <input class="greenlink formlink clickable" name="answer_submit" id="next" type="submit" value="Anworten" accesskey="s"/>
+            </form>
          </section>
             
          <section id="timer" aria-labelledby="timerheading">

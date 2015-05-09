@@ -108,13 +108,35 @@ public class Application extends Controller {
 	}
 
 	public static Result answerQuestion(){
+		try{
 		DynamicForm form = Form.form().bindFromRequest();
 		JeopardyGame jeopardyGame = GameState.getGameStateMap().get(session().get("username"));
 		//TODO fill with answers
+		String[] choice = request().body().asFormUrlEncoded().get("answers[]");
 		List<Integer> answers = new ArrayList<Integer>();
+		
+		Question currentQuestion = jeopardyGame.getHumanPlayer().getChosenQuestion();
+		List<Answer> allAnswers = currentQuestion.getAllAnswers();
+
+			if(choice != null){
+				for(String now : choice){
+					for (Answer answer : allAnswers){
+						if(answer.getId() == Integer.parseInt(now)) {
+							answers.add(answer.getId());
+						}
+					}
+				}
+			}
+		
+		
 		jeopardyGame.answerHumanQuestion(answers);
 		
-		
+		if(jeopardyGame.isGameOver()){
+			return redirect(routes.Application.showWinner());
+		}else {
+			return ok(jeopardy.render(jeopardyGame));
+		}
+
 //		System.out.println("empty? " + form.data().keySet().isEmpty());
 //		for(String s : form.data().keySet()){
 //			System.out.println("s = " + s);
@@ -123,7 +145,10 @@ public class Application extends Controller {
 //		System.out.println(form.data().values());
 //		System.out.println(form.data().containsValue("2"));
 		
-		return ok(jeopardy.render(jeopardyGame));
+		
+		}catch(NullPointerException e){
+			return badRequest();
+		}
 	}
 	
 		public static Result registration() {
@@ -226,5 +251,9 @@ public class Application extends Controller {
 		public String password;
 	}
 	
+	
+	public static long getTimeStamp() {
+       return (long)(System.currentTimeMillis() / 1000L);
+    }
 	
 }
