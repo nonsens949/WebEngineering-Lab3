@@ -79,9 +79,9 @@
 				   <section class="questioncategory" aria-labelledby="@categories.getName()heading">
 					  <h3 id="@categories.getName()heading" class="tile category-title"><span class="accessibility">Kategorie: </span>@categories.getName()</h3>
 					  <ol class="category_questions">
-
+						for(questions <- categories.getQuestions())
 						 <li><input name="question_selection" id="question_@questions.getId()" value="@questions.getId()" type="radio" disabled="disabled" /><label class="tile clickable" for="question_@questions.getId()">@questions.getValue()</label></li>
-					  
+					  }
 					  </ol>
 				   </section>
 			   }
