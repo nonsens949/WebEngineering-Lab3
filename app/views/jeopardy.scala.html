@@ -71,24 +71,26 @@
             <p class="user-info positive-change">@jeopardyGame.getHumanPlayer().getLatestProfitChange()</p>
             <p class="user-info negative-change">@jeopardyGame.getMarvinPlayer().getLatestProfitChange()</p>
             <p class="user-info">Deadpool hat TU Wien für € 1000 gewählt.</p>
-            <!-- <form id="questionform" action="@routes.Application.showQuestion()" method="post"> -->
             @helper.form(action = routes.Application.showQuestion) {
-               <fieldset>
-               <legend class="accessibility">Fragenauswahl</legend
-			   @for(categories <- jeopardyGame.getCategories){
-				   <section class="questioncategory" aria-labelledby="@categories.getName()heading">
-					  <h3 id="@categories.getName()heading" class="tile category-title"><span class="accessibility">Kategorie: </span>@categories.getName()</h3>
-					  <ol class="category_questions">
-						for(questions <- categories.getQuestions())
-						 <li><input name="question_selection" id="question_@questions.getId()" value="@questions.getId()" type="radio" disabled="disabled" /><label class="tile clickable" for="question_@questions.getId()">@questions.getValue()</label></li>
-					  }
+            	<fieldset>
+            	<legend class="accessibility">Fragenauswahl</legend>
+			    	@for(categories <- jeopardyGame.getCategories()) {
+						<section class="questioncategory" aria-labelledby="@categories.getName()heading">
+						<h3 id="@categories.getName()heading" class="tile category-title"><span class="accessibility">Kategorie: </span>@categories.getName()</h3>
+						<ol class="category_questions">
+						@for(questions <- categories.getQuestions()) {
+							@if(jeopardyGame.hasBeenChosen(questions)) {
+						 		<li><input name="question_selection" id="question_@questions.getId()" value="@questions.getId()" type="radio" disabled="disabled" /><label class="tile clickable" for="question_@questions.getId()">@questions.getValue()</label></li>
+							 } else {
+							 	<li><input name="question_selection" id="question_@questions.getId()" value="@questions.getId()" type="radio"  /><label class="tile clickable" for="question_@questions.getId()">@questions.getValue()</label></li>
+							 }
+						  }
 					  </ol>
 				   </section>
 			   }
               </fieldset> 
 				<input class="greenlink formlink clickable" name="question_submit" id="next" type="submit" value="wählen" accesskey="s" />
             }
-            <!--  </form> -->
          </section>
          
          <section id="lastgame" aria-labelledby="lastgameheading">
