@@ -39,7 +39,8 @@ public class Application extends Controller {
 	
 	//logout von Jeopardy
 	public static Result logout(){
-		session().clear();
+		session().remove("username");
+		session().remove("avatar");
 		return redirect(routes.Application.authentication());
 	}
 	
@@ -58,7 +59,7 @@ public class Application extends Controller {
 		user.setAvatar(Avatar.getAvatar(session().get("avatar")));
 		JeopardyGame jeopardyGame = new SimpleJeopardyGame(jeopardyFactory, user);
 		GameState.getGameStateMap().put(session().get("username"), jeopardyGame);
-		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
+		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username")), session().get("timestamp")));
 	}
 	
 	//loads the Winner site
@@ -69,6 +70,9 @@ public class Application extends Controller {
 	//loads the question site
 	public static Result showQuestion(){
 		DynamicForm form = Form.form().bindFromRequest();
+		if(form.data().get("question_selection") == null){
+			return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username")), session().get("timestamp")));
+		}
 		Integer questionId = Integer.parseInt(form.data().get("question_selection"));
 
 		JeopardyGame jeopardyGame = GameState.getGameStateMap().get(session().get("username"));
@@ -91,7 +95,7 @@ public class Application extends Controller {
 		System.out.println("AVATAR == NULL ? " + Avatar.getAvatar(session().get("avatar")) == null);
 		user.setAvatar(Avatar.getAvatar(session().get("avatar")));
 		GameState.getGameStateMap().replace(session().get("username"), new SimpleJeopardyGame(jeopardyFactory, user));
-		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username"))));
+		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username")), session().get("timestamp")));
 	}
 
 	public static Result answerQuestion(){
@@ -119,10 +123,12 @@ public class Application extends Controller {
 		jeopardyGame.answerHumanQuestion(answers);
 		
 		if(jeopardyGame.isGameOver()){
+			System.out.println(getTimeStamp());
+			session().put("timestamp", getTimeStamp().toString());
 			return ok(winner.render(jeopardyGame));
 		}
 		else {
-			return ok(jeopardy.render(jeopardyGame));
+			return ok(jeopardy.render(jeopardyGame, session().get("timestamp")));
 		}
 
 		}catch(NullPointerException e){
@@ -215,7 +221,8 @@ public class Application extends Controller {
             
             if (user.getPassword().equals(password)) {
                 
-                session().clear();
+                session().remove("username");
+                session().remove("avatar");
                 session("username", username);
                 session("avatar", user.getAvatar().getId());
                 return redirect(routes.Application.jeopardy());
@@ -232,8 +239,9 @@ public class Application extends Controller {
 	}
 	
 	
-	public static long getTimeStamp() {
-       return (long)(System.currentTimeMillis() / 1000L);
+	public static Timestamp getTimeStamp() {
+		Date date = new Date();
+		return new Timestamp(date.getTime());
     }
 	
 }

@@ -1,4 +1,4 @@
-@(jeopardyGame: JeopardyGame)
+@(jeopardyGame: JeopardyGame, timestamp: String)
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
@@ -141,7 +141,11 @@
          <section id="lastgame" aria-labelledby="lastgameheading">
 
             <h2 id="lastgameheading" class="accessibility">@Messages("jeopardy.lastGameInfo")</h2>
-            <p>@Messages("jeopardy.lastGame") @Messages("jeopardy.lastGameNever")</p>
+            @if(timestamp == null){
+            	<p>@Messages("jeopardy.lastGame") @Messages("jeopardy.lastGameNever")</p>
+            } else {
+            	<p>@Messages("jeopardy.lastGame") @timestamp</p>
+            }
          </section>
 		</div>
 		
