@@ -61,21 +61,6 @@ public class MainGame extends Controller {
 		jeopardyGame.chooseHumanQuestion(questionId);
 		return ok(question.render(jeopardyGame, jeopardyGame.getHumanPlayer().getChosenQuestion()));
 	}
-	
-	public static Result newGame(){
-		JeopardyFactory jeopardyFactory;
-		if(lang().code().equals("de")){
-			jeopardyFactory = new PlayJeopardyFactory("data.de.json");
-		}
-		else {
-			jeopardyFactory = new PlayJeopardyFactory("data.en.json");
-		}
-		User user = new SimpleUser();
-		user.setName(session().get("username"));
-		user.setAvatar(Avatar.getAvatar(session().get("avatar")));
-		GameState.getGameStateMap().replace(session().get("username"), new SimpleJeopardyGame(jeopardyFactory, user));
-		return ok(jeopardy.render(GameState.getGameStateMap().get(session().get("username")), session().get("timestamp")));
-	}
 
 	public static Result answerQuestion(){
 	
