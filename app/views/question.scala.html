@@ -67,7 +67,7 @@
             
       <!-- Question -->
       <section id="question" aria-labelledby="questionheading">
-      		@helper.form(action = routes.Application.answerQuestion, 'id -> "questionform") {
+      		@helper.form(action = routes.MainGame.answerQuestion(), 'id -> "questionform") {
                <h2 id="questionheading" class="accessibility">@Messages("question.question")</h2>
                <p id="questiontype">@question.getCategory().getName()</p>
                <p id="questiontext">@question.getText()</p>

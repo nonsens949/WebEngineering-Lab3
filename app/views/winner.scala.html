@@ -73,7 +73,7 @@
          </section>
          <section id="newgame" aria-labelledby="newgameheading">
              <h2 id="newgameheading" class="accessibility">@Messages("winner.newGame")</h2>
-         	@helper.form(action = routes.Application.newGame){
+         	@helper.form(action = routes.MainGame.jeopardy()){
                	<input class="clickable orangelink contentlink" id="new_game" type="submit" name="restart" value="@Messages("winner.newGame")" />
             }
          </section>

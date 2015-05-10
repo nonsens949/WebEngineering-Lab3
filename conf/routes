@@ -8,13 +8,12 @@ GET     /                       	controllers.Application.index()
 #Task pages
 GET		/login						controllers.Application.authentication()
 GET		/registration				controllers.Application.registration()
-GET		/jeopardy					controllers.Application.jeopardy()
-GET 	/winner						controllers.Application.showWinner()
-POST	/question					controllers.Application.showQuestion()
-POST 	/answerQuestion				controllers.Application.answerQuestion()
+GET		/jeopardy/new				controllers.MainGame.jeopardy()
+GET 	/winner						controllers.MainGame.showWinner()
+POST	/question					controllers.MainGame.showQuestion()
+POST 	/jeopardy					controllers.MainGame.answerQuestion()
 POST    /login/submit               controllers.Application.authenticationSubmit()
 POST    /registration               controllers.Application.registrationSubmit()
-POST 	/jeopardy/newGame			controllers.Application.newGame()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
